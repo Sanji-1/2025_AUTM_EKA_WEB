@@ -82,9 +82,10 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("mousemove", (event) => {
     mouseX = event.movementX;
     mouseY = event.movementY;
+
 })
 
-function update() {
+ function update() {
     let dz = +(pressRight - pressLeft) * Math.sin(pawn.ry * DEG) - (pressForward - pressBack) * Math.cos(pawn.ry * DEG) ;
     let dx = +(pressRight - pressLeft) * Math.cos(pawn.ry * DEG) + (pressForward - pressBack) * Math.sin(pawn.ry * DEG)  ;
 
@@ -95,13 +96,19 @@ function update() {
     let drx = mouseY * mouseSensitivity;
     let dry = mouseX * mouseSensitivity;
 
-    mouseX = mouseY = 0;
 
+    mouseX = mouseY = 0;
+ 
     pawn.z += dz;
     pawn.x += dx;
 
     if (lock) {
         pawn.rx += drx;
+       if (pawn.rx > 89) {
+    pawn.rx = 89;   
+} else if (pawn.rx < -89) {
+    pawn.rx = -89; 
+}
         pawn.ry += dry;
     }
 
@@ -127,3 +134,5 @@ function drawMyWorld(squares, name) {
         world.appendChild(mySquare1);
     }
 }
+
+
